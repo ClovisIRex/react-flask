@@ -1,6 +1,8 @@
 @import "tailwindcss";
 @import "tw-animate-css";
-
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
@@ -116,5 +118,16 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+/* Default cursor for interactive elements */
+@layer base {
+  button,
+  [role="button"],
+  a,
+  svg[role="button"],
+  [class*="icon"] {
+    @apply cursor-pointer;
   }
 }

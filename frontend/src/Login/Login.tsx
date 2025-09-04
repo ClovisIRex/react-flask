@@ -88,7 +88,7 @@ export default function Login() {
             </div>
             <Button
               type="submit"
-              className="w-full h-11 text-lg"
+              className="clickable w-full h-11 text-lg"
               disabled={loading}
             >
               {loading ? (
