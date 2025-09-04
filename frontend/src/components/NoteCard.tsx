@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { Trash2 } from "lucide-react";
 import type { Note } from "@/Types/note";
 import { cn } from "@/lib/utils";
@@ -8,7 +9,7 @@ type Props = {
   onDelete: (note: Note) => void;
 };
 
-export default function NoteCard({ note, onEdit, onDelete }: Props) {
+function NoteCardComponent({ note, onEdit, onDelete }: Props) {
   return (
     <div
       role="button"
@@ -23,7 +24,10 @@ export default function NoteCard({ note, onEdit, onDelete }: Props) {
       <button
         aria-label="Delete note"
         className="absolute right-2 top-2 rounded p-1 hover:bg-black/5"
-        onClick={(e) => { e.stopPropagation(); onDelete(note); }}
+        onClick={(e) => {
+          e.stopPropagation();
+          onDelete(note);
+        }}
       >
         <Trash2 className="h-4 w-4 text-red-600" />
       </button>
@@ -33,3 +37,9 @@ export default function NoteCard({ note, onEdit, onDelete }: Props) {
     </div>
   );
 }
+
+const NoteCard = memo(NoteCardComponent);
+
+NoteCard.displayName = "NoteCard";
+
+export default NoteCard;
