@@ -9,7 +9,7 @@ class User(db.Model):
     username = db.Column(db.String(64), unique=True, nullable=False, index=True)
     password_hash = db.Column(db.String(255), nullable=False)
 
-class Note(db.Model):
+class  Note(db.Model):
     __tablename__ = 'notes'
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False, index=True)

@@ -6,3 +6,4 @@ backend/.venv
 backend/instance
 backend/app/__pycache__
 backend/app/__pycache__/__init__.cpython-313.pyc
+backend/notes.db

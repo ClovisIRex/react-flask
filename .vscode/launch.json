@@ -2,25 +2,36 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Backend Flask",
+      "name": "Backend - Flask (wsgi.py)",
       "type": "python",
       "request": "launch",
       "program": "${workspaceFolder}/backend/wsgi.py",
       "cwd": "${workspaceFolder}/backend",
       "console": "integratedTerminal",
+      "envFile": "${workspaceFolder}/backend/.env",
       "env": {
         "FLASK_ENV": "development"
       },
-      "justMyCode": true
+      "justMyCode": true,
+      "serverReadyAction": {
+        "pattern": "Running on http://127\\.0\\.0\\.1:(\\d+)",
+        "uriFormat": "http://127.0.0.1:%s/health",
+        "action": "openExternally"
+      }
     },
     {
-      "name": "Frontend Static Server",
-      "type": "python",
+      "name": "Frontend - Vite dev server",
+      "type": "pwa-node",
       "request": "launch",
-      "module": "http.server",
-      "args": ["5173"],
       "cwd": "${workspaceFolder}/frontend",
-      "justMyCode": true
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev"],
+      "console": "integratedTerminal",
+      "serverReadyAction": {
+        "pattern": "Local:\\s*http://(?:localhost|127\\.0\\.0\\.1):(\\d+)",
+        "uriFormat": "http://127.0.0.1:%s",
+        "action": "openExternally"
+      }
     },
     {
       "name": "Open Frontend in Browser",
@@ -34,8 +45,8 @@
     {
       "name": "Run All - Backend + Frontend + Browser",
       "configurations": [
-        "Backend Flask",
-        "Frontend Static Server",
+        "Backend - Flask (wsgi.py)",
+        "Frontend - Vite dev server",
         "Open Frontend in Browser"
       ]
     }

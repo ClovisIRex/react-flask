@@ -1,0 +1,19 @@
+{
+  // Tell VS Code which Python to use
+  "python.defaultInterpreterPath": "${workspaceFolder}/backend/.venv/bin/python",
+
+  // On Windows, VS Code will auto-resolve the Scripts/python.exe
+  // You can add a conditional path if needed:
+  // "python.defaultInterpreterPath": "${workspaceFolder}/backend/.venv/Scripts/python.exe",
+
+  // Make terminals auto-activate the venv
+  "python.terminal.activateEnvironment": true,
+
+  // Optional: linting and formatting
+  "python.linting.enabled": true,
+  "python.analysis.autoImportCompletions": true,
+  "python.formatting.provider": "black",
+
+  // If you’re using TypeScript React frontend too
+  "typescript.tsdk": "frontend/node_modules/typescript/lib"
+}
