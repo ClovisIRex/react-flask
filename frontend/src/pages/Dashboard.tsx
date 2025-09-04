@@ -1,6 +1,8 @@
-import { useEffect, useMemo, useRef, useCallback, useState } from "react";
+import { useCallback, useState } from "react";
 import type { Note } from "@/Types/note";
 import { useNotes } from "@/hooks/useNotes";
+import { useUser } from "@/hooks/useUser";
+import { useWelcomeToast } from "@/hooks/useWelcomeToast";
 import { DashboardHeader } from "@/components/dashboard/DashboardHeader";
 import { EmptyState } from "@/components/dashboard/EmptyState";
 import { NotesGrid } from "@/components/dashboard/NotesGrid";
@@ -9,25 +11,17 @@ import CreateNoteModal from "@/components/modals/CreateNoteModal";
 import EditNoteModal from "@/components/modals/EditNoteModal";
 import ConfirmDeleteModal from "@/components/modals/ConfirmDeleteModal";
 import { clearAuth } from "@/auth/auth";
-import { toast } from "sonner";
 
 export default function Dashboard() {
-  const user = useMemo(() => JSON.parse(localStorage.getItem("user") || "{}"), []);
+  const { username } = useUser();
+  useWelcomeToast(username, 2000);
+
   const { notes, loading, createNote, updateNote, deleteNote } = useNotes();
 
   const [createOpen, setCreateOpen] = useState(false);
   const [editOpen, setEditOpen] = useState(false);
   const [deleteOpen, setDeleteOpen] = useState(false);
   const [selected, setSelected] = useState<Note | null>(null);
-
-  // welcome toast once
-  const welcomed = useRef(false);
-  useEffect(() => {
-    if (!welcomed.current && user?.username) {
-      welcomed.current = true;
-      toast.success(`Welcome ${user.username}!`, { duration: 2000, id: "welcome" });
-    }
-  }, [user?.username]);
 
   const onAdd = useCallback(() => setCreateOpen(true), []);
   const onLogout = useCallback(() => {
@@ -56,7 +50,7 @@ export default function Dashboard() {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <DashboardHeader username={user?.username || "User"} onAdd={onAdd} onLogout={onLogout} />
+      <DashboardHeader username={username} onAdd={onAdd} onLogout={onLogout} />
 
       <main className="mx-auto max-w-6xl w-full p-4 flex-1">
         {loading ? (
