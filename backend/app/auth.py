@@ -1,8 +1,10 @@
 import os
 import datetime as dt
+from datetime import datetime, timezone
 from functools import wraps
 from flask import request, abort, g, current_app
 import jwt
+now = datetime.now(timezone.utc).astimezone(dt.timezone(dt.timedelta(hours=3)))
 
 def _secret() -> str:
     return os.getenv('SECRET_KEY', current_app.config.get('SECRET_KEY', 'dev-secret-change-me'))
@@ -10,7 +12,7 @@ def _secret() -> str:
 def create_token(user_id: int) -> str:
     payload = {
         'sub': user_id,
-        'exp': dt.datetime.utcnow() + dt.timedelta(hours=8)
+        'exp': now + dt.timedelta(hours=8)
     }
     return jwt.encode(payload, _secret(), algorithm='HS256')
 
