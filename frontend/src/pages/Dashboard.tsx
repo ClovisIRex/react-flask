@@ -4,7 +4,7 @@ import type { Note } from "@/Types/note";
 import { api } from "@/API/api";
 import { clearAuth } from "@/auth/auth";
 import { toast } from "sonner";
-import { formatDate } from "@/lib/utils";
+import { formatDateToLocal } from "@/lib/utils";
 import NoteCard from "@/components/NoteCard";
 import { Skeleton } from "@/components/ui/skeleton";
 import CreateNoteModal from "@/components/modals/CreateNoteModal";
@@ -128,7 +128,7 @@ export default function Dashboard() {
                   onDelete={(note) => { setSelected(note); setDeleteOpen(true); }}
                 />
                 <div className="mt-1 text-xs text-slate-500">
-                  {formatDate(n.updated_at || n.created_at)}
+                  {formatDateToLocal(n.updated_at || n.created_at)}
                 </div>
               </div>
             ))}
