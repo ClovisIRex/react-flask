@@ -5,14 +5,14 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 
+const TITLE_MAX = 50;
+const CONTENT_MAX = 100;
+
 type Props = {
   open: boolean;
   onOpenChange: (v: boolean) => void;
   onSubmit: (data: { title: string; content: string }) => Promise<void> | void;
 };
-
-const TITLE_MAX = 50;
-const CONTENT_MAX = 100;
 
 function wordCount(s: string): number {
   return s.trim().length ? s.trim().split(/\s+/).filter(Boolean).length : 0;

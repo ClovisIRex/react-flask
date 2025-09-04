@@ -6,15 +6,15 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import type { Note } from "@/Types/note";
 
+const TITLE_MAX = 50;
+const CONTENT_MAX = 100;
+
 type Props = {
   open: boolean;
   onOpenChange: (v: boolean) => void;
   note: Note | null;
   onSubmit: (id: number, data: { title: string; content: string }) => Promise<void> | void;
 };
-
-const TITLE_MAX = 50;
-const CONTENT_MAX = 100;
 
 function wordCount(s: string): number {
   // Count words by splitting on whitespace and filtering empties

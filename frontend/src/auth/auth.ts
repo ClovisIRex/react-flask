@@ -3,13 +3,13 @@ export function saveAuth(token: string, user: unknown) {
   localStorage.setItem("user", JSON.stringify(user));
 }
 
-export function getToken(): string | null {
-  return localStorage.getItem("token");
-}
-
 export function clearAuth() {
   localStorage.removeItem("token");
   localStorage.removeItem("user");
+}
+
+export function getToken(): string | null {
+  return localStorage.getItem("token");
 }
 
 export function isTokenValid(token: string | null): boolean {
