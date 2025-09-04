@@ -9,20 +9,20 @@ def cli():
 
 @cli.command('initdb')
 @click.option('--database-url', default=None, help='SQLAlchemy connection string')
-@click.option('--seed-email', default=None, help='Seed user email')
+@click.option('--seed-username', default=None, help='Seed user username (eg admin)')
 @click.option('--seed-password', default=None, help='Seed user password')
-def initdb(database_url, seed_email, seed_password):
-    "Create tables for the given connection string and optionally seed a user."
+def initdb(database_url, seed_username, seed_password):
+    "Create tables and optionally seed the admin user."
     app = create_app(database_url)
     with app.app_context():
         db.create_all()
-        if seed_email and seed_password:
-            email = seed_email.strip().lower()
-            if not User.query.filter_by(email=email).first():
-                u = User(email=email, password_hash=generate_password_hash(seed_password))
+        if seed_username and seed_password:
+            username = seed_username.strip()
+            if not User.query.filter_by(username=username).first():
+                u = User(username=username, password_hash=generate_password_hash(seed_password))
                 db.session.add(u)
                 db.session.commit()
-                click.echo(f"Seeded user {email}")
+                click.echo(f"Seeded user {username}")
             else:
                 click.echo("User already exists - skipping seed")
 

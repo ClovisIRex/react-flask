@@ -8,15 +8,15 @@ api_bp = Blueprint('api', __name__)
 @api_bp.post('/login')
 def login():
     data = request.get_json(silent=True) or {}
-    email = (data.get('email') or '').strip().lower()
+    username = (data.get('username') or '').strip()
     password = data.get('password') or ''
-    if not email or not password:
-        abort(400, description='email and password are required')
-    user = User.query.filter_by(email=email).first()
+    if not username or not password:
+        abort(400, description='username and password are required')
+    user = User.query.filter_by(username=username).first()
     if not user or not check_password_hash(user.password_hash, password):
         abort(401, description='invalid credentials')
     token = create_token(user.id)
-    return jsonify({'token': token, 'user': {'id': user.id, 'email': user.email}})
+    return jsonify({'token': token, 'user': {'id': user.id, 'username': user.username}})
 
 @api_bp.get('/notes')
 @require_auth
