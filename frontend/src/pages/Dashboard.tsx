@@ -1,12 +1,25 @@
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { clearAuth } from "../Login/auth";
+import { toast } from "sonner";
 
 export default function Dashboard() {
+    
   const navigate = useNavigate();
+
+  const user = JSON.parse(localStorage.getItem("user") || "{}");
+
+  useEffect(() => {
+    if (user?.username) {
+      toast.success(`Welcome ${user.username}!`, { duration: 2000 } );
+    }
+  }, [user]);
+
   function logout() {
     clearAuth();
     navigate("/login", { replace: true });
   }
+
   return (
     <div className="min-h-screen flex items-center justify-center p-6">
       <div className="text-center space-y-4">
