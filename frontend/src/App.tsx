@@ -1,23 +1,31 @@
-import { BrowserRouter, Routes, Route, Navigate, Outlet } from "react-router-dom";
-import Login from "./Login/Login";
-import Dashboard from "./pages/Dashboard";
-import { getToken } from "./Login/auth";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import RequireAuth from "@/routes/RequireAuth";
+import RequireGuest from "@/routes/RequireGuest";
+import Login from "@/pages/Login";
+import Dashboard from "@/pages/Dashboard";
 import "./App.css";
-
-function PrivateRoute() {
-  const token = getToken();
-  return token ? <Outlet /> : <Navigate to="/login" replace />;
-}
 
 export default function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route element={<PrivateRoute />}>
+        {/* Guests only - if logged in, redirect to /dashboard */}
+        <Route
+          path="/login"
+          element={
+            <RequireGuest>
+              <Login />
+            </RequireGuest>
+          }
+        />
+
+        {/* Auth only */}
+        <Route element={<RequireAuth />}>
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/" element={<Navigate to="/dashboard" replace />} />
         </Route>
+
+        {/* Fallback */}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>

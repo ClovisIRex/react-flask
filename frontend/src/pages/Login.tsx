@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { api } from "@/API/api";
-import { saveAuth } from '@/Login/auth';
+import { saveAuth } from '@/auth/auth';
+import { isAuthenticated } from "@/auth/auth";
 
 import {
   Card,
@@ -25,11 +26,16 @@ import {
 import { Loader2 } from "lucide-react";
 
 export default function Login() {
+
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [errMsg, setErrMsg] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (isAuthenticated()) navigate("/dashboard", { replace: true });
+  }, [navigate]);
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();

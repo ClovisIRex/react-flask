@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import type { Note } from "@/Types/note";
 import { api } from "@/API/api";
-import { clearAuth } from "@/Login/auth";
+import { clearAuth } from "@/auth/auth";
 import { toast } from "sonner";
 import { formatDate } from "@/lib/utils";
 import NoteCard from "@/components/NoteCard";
