@@ -1,0 +1,43 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Backend Flask",
+      "type": "python",
+      "request": "launch",
+      "program": "${workspaceFolder}/backend/wsgi.py",
+      "cwd": "${workspaceFolder}/backend",
+      "console": "integratedTerminal",
+      "env": {
+        "FLASK_ENV": "development"
+      },
+      "justMyCode": true
+    },
+    {
+      "name": "Frontend Static Server",
+      "type": "python",
+      "request": "launch",
+      "module": "http.server",
+      "args": ["5173"],
+      "cwd": "${workspaceFolder}/frontend",
+      "justMyCode": true
+    },
+    {
+      "name": "Open Frontend in Browser",
+      "type": "pwa-chrome",
+      "request": "launch",
+      "url": "http://127.0.0.1:5173",
+      "webRoot": "${workspaceFolder}/frontend"
+    }
+  ],
+  "compounds": [
+    {
+      "name": "Run All - Backend + Frontend + Browser",
+      "configurations": [
+        "Backend Flask",
+        "Frontend Static Server",
+        "Open Frontend in Browser"
+      ]
+    }
+  ]
+}
